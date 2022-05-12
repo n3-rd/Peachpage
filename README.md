@@ -1,6 +1,6 @@
-# Jeje (jeje)
+# Peachpage
 
-An app for making music player screenshots
+## PeachPage is still in development.
 
 ## Install the dependencies
 
