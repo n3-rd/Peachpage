@@ -1,11 +1,27 @@
 // app global css in SCSS form
+$dark: #000;
+$color-2: #ca054d;
+$color-3: #7dce82;
+$color-4: #ffc07f;
+$color-5: #ffcf99;
+
+$light-text: #0f0f0f;
+$dark-text: #f0f0f0;
+
 .body--light {
   background-color: #fff;
   color: $light-text;
+  .q-header {
+    background-color: #fff;
+    color: #000;
+  }
 }
 .body--dark {
   background-color: $dark;
   color: $dark-text;
+  .q-header {
+    background-color: $dark;
+  }
 }
 .light-text {
   color: $light-text;

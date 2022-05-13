@@ -11,6 +11,9 @@
 <script>
 export default {
   name: "NoArticles",
+  data() {
+    return {};
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -26,7 +29,6 @@ export default {
   .text {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
     margin-top: 1rem;
   }
 }
