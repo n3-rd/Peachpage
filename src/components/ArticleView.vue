@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div v-for="article in currentArticle" :key="article.id">
+    <div v-for="article in currentArticle" :key="article.id" class="q-px-lg">
+      <h2 class="text-center q-px-lg">{{ article.title }}</h2>
+      <div class="text_small text-center q-mb-lg">
+        <span
+          >By {{ article.author }}
+          <span v-if="article.date">on {{ article.date }}</span></span
+        >
+      </div>
+
       <div v-html="article.content" class="q-px-md"></div>
     </div>
   </div>
