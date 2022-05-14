@@ -7,6 +7,14 @@
           >By {{ article.author }}
           <span v-if="article.date">on {{ article.date }}</span></span
         >
+        <div class="text_small text-center">
+          <span v-if="article.source">{{ article.source }}</span>
+          <span v-if="article.url" class="q-px-md">
+            <a :href="article.url" target="_blank">
+              {{ article.url }}
+            </a>
+          </span>
+        </div>
       </div>
 
       <div v-html="article.content" class="q-px-md article"></div>
@@ -32,7 +40,7 @@ export default {
       image.addEventListener("load", () => {
         //  set explicit height and width for images
         image.style.height = "auto";
-        image.style.width = "100%";
+        image.style.width = "fit-content";
       });
     });
   },

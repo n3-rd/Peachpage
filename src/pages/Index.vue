@@ -18,6 +18,15 @@
         <div v-if="!dark">
           <q-btn dense flat round icon="light_mode" @click="toggleDarkMode" />
         </div>
+        <!-- <a href="https://github.com/n3-rd/Peachpage" class="initial-link"> -->
+        <q-btn
+          dense
+          flat
+          round
+          icon="ion-logo-github"
+          @click="openUrl('https://github.com/n3-rd/Peachpage')"
+        />
+        <!-- </a> -->
       </q-toolbar>
     </q-header>
 
@@ -42,6 +51,7 @@ import NoArticles from "../components/content-holders/NoArticles.vue";
 import AddArticle from "../components/AddArticle.vue";
 import Articles from "../components/Articles.vue";
 import ArticleView from "../components/ArticleView.vue";
+import { openURL } from "quasar";
 
 export default defineComponent({
   name: "PageIndex",
@@ -73,10 +83,15 @@ export default defineComponent({
     setDarkMode() {
       localStorage.setItem("dark", "true");
       Dark.set(true);
+      this.dark = Dark.isActive;
     },
     setLightMode() {
       localStorage.setItem("dark", "false");
       Dark.set(false);
+      this.dark = Dark.isActive;
+    },
+    openUrl(link) {
+      openURL(link);
     },
   },
   mounted() {

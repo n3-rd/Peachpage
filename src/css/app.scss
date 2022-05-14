@@ -8,6 +8,13 @@ $color-5: #ffcf99;
 $light-text: #0f0f0f;
 $dark-text: #f0f0f0;
 
+a {
+  color: $color-2;
+}
+.initial-link {
+  // color: initial;
+  text-decoration: none;
+}
 .body--light {
   background-color: #fff;
   color: $light-text;
