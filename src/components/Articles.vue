@@ -5,7 +5,7 @@
       <div
         v-for="article in articles"
         :key="article.id"
-        class="q-py-md cursor-pointer"
+        class="q-py-sm cursor-pointer"
         @click="
           setCurrentArticle(
             article.id,
@@ -20,6 +20,23 @@
           )
         "
       >
+        <q-popup-proxy context-menu>
+          <q-banner>
+            <template v-slot:avatar>
+              <q-icon name="delete" color="negative" />
+
+              <q-list style="min-width: 100px">
+                <q-item
+                  clickable
+                  v-close-popup
+                  @click="deleteArticle(article.id)"
+                >
+                  <q-item-section>Delete Article</q-item-section>
+                </q-item>
+              </q-list>
+            </template>
+          </q-banner>
+        </q-popup-proxy>
         <q-item>
           <q-item-section top avatar>
             <q-avatar color="primary">
@@ -52,6 +69,7 @@
 import { liveQuery } from "dexie";
 import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
+import { Notify } from "quasar";
 
 export default {
   data() {
@@ -89,6 +107,22 @@ export default {
           successfully added. Got id ${id}`;
       } catch (e) {
         console.log(e);
+      }
+    },
+    async deleteArticle(id) {
+      try {
+        await db.articles.delete(id);
+        Notify.create({
+          message: "Article deleted successfully",
+          type: "positive",
+          timeout: 3000,
+        });
+      } catch (e) {
+        console.log(e);
+        Notify.create({
+          message: "An Error occured while deleting article",
+          type: "negative",
+        });
       }
     },
   },

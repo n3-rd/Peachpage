@@ -9,7 +9,7 @@
         >
       </div>
 
-      <div v-html="article.content" class="q-px-md"></div>
+      <div v-html="article.content" class="q-px-md article"></div>
     </div>
   </div>
 </template>
@@ -26,10 +26,20 @@ export default {
       ),
     };
   },
+  updated() {
+    const images = document.querySelectorAll("img");
+    images.forEach((image) => {
+      image.addEventListener("load", () => {
+        //  set explicit height and width for images
+        image.style.height = "auto";
+        image.style.width = "100%";
+      });
+    });
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Montserrat:wght@500&display=swap");
 * {
   font-family: "Lato", sans-serif;
@@ -40,49 +50,53 @@ html {
   font-size: 100%;
 } /*16px*/
 
-body {
+.article {
   font-weight: 400;
   line-height: 1.75;
-}
+  overflow-x: hidden;
+  p {
+    margin-bottom: 1rem;
+  }
 
-p {
-  margin-bottom: 1rem;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin: 3rem 0 1.38rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  margin: 3rem 0 1.38rem;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  line-height: 1.3;
-}
+  h1 {
+    margin-top: 0;
+    font-size: 3.052rem;
+  }
 
-h1 {
-  margin-top: 0;
-  font-size: 3.052rem;
-}
+  h2 {
+    font-size: 2.441rem;
+  }
 
-h2 {
-  font-size: 2.441rem;
-}
+  h3 {
+    font-size: 1.953rem;
+  }
 
-h3 {
-  font-size: 1.953rem;
-}
+  h4 {
+    font-size: 1.563rem;
+  }
 
-h4 {
-  font-size: 1.563rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-small,
-.text_small {
-  font-size: 0.8rem;
+  h5 {
+    font-size: 1.25rem;
+  }
+  small,
+  .text_small {
+    font-size: 0.8rem;
+  }
+  img {
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+  }
 }
 </style>

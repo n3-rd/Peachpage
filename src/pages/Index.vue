@@ -12,13 +12,12 @@
         </q-toolbar-title>
         <q-space />
         <!-- add a dark mode toggle button -->
-        <q-btn dense flat round icon="brightness_3" @click="toggleDarkMode" />
-        <q-toggle
-          v-model="dark"
-          checked-icon="dark-mode"
-          color="red"
-          unchecked-icon="light_mode"
-        />
+        <div v-if="dark">
+          <q-btn dense flat round icon="brightness_3" @click="toggleDarkMode" />
+        </div>
+        <div v-if="!dark">
+          <q-btn dense flat round icon="light_mode" @click="toggleDarkMode" />
+        </div>
       </q-toolbar>
     </q-header>
 

@@ -39,6 +39,8 @@
 </template>
 <script>
 import { db } from "../db";
+import { Notify } from "quasar";
+
 export default {
   data() {
     return {
@@ -53,6 +55,10 @@ export default {
       this.articleLinkDialog = true;
     },
     fetchArticle() {
+      const fetching = Notify.create({
+        message: "Fetching article...",
+        type: "info",
+      });
       fetch(`https://article-scrapper.glitch.me?url=${this.articleLink}`)
         .then((response) => response.json())
         .then((formattedArticle) => {
@@ -60,8 +66,26 @@ export default {
             console.log(formattedArticle);
             this.parsedArticle = formattedArticle.data;
             this.addArticle();
+            fetching();
+            setTimeout(() => {
+              Notify.create({
+                message: "Article fetched successfully",
+                type: "positive",
+              });
+            }, 3000);
           } else {
             console.log("something went wrong");
+            setTimeout(() => {
+              Notify.create({
+                message: "An Error occured",
+                type: "negative",
+              });
+            }, 3000);
+            Notify.create({
+              message: "Article may be invalid or mostly dynamic or web based",
+              type: "negative",
+              timeout: 3000,
+            });
           }
         });
     },
