@@ -1,8 +1,8 @@
 {
-  "name": "jeje",
+  "name": "Peachpage",
   "version": "0.0.1",
-  "description": "An app for making music player screenshots",
-  "productName": "Jeje",
+  "description": "Save articles to read later, on the web!",
+  "productName": "Peachpage",
   "author": "n3-rd",
   "private": true,
   "scripts": {

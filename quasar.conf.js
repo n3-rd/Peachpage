@@ -143,13 +143,13 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `Jeje`,
+        name: `Peachpage`,
         short_name: `Jeje`,
-        description: `An app for making music player screenshots`,
+        description: `Save articles to read later, on the web!`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",
-        theme_color: "#027be3",
+        theme_color: "#D02765",
         icons: [
           {
             src: "icons/icon-128x128.png",
@@ -208,7 +208,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: "jeje",
+        appId: "peachpage",
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
