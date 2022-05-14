@@ -55,6 +55,7 @@ export default {
       this.articleLinkDialog = true;
     },
     fetchArticle() {
+      this.articleLinkDialog = false;
       const fetching = Notify.create({
         message: "Fetching article...",
         type: "info",
@@ -73,6 +74,7 @@ export default {
                 type: "positive",
               });
             }, 3000);
+            this.articleLink = "";
           } else {
             console.log("something went wrong");
             setTimeout(() => {

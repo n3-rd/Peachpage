@@ -45,6 +45,11 @@ export default {
         image.style.maxWidth = "100%";
       });
     });
+    Prism.highlightAll();
+    const pre = document.querySelectorAll("pre, code");
+    pre.forEach((p) => {
+      p.style.overflowX = "auto";
+    });
   },
 };
 </script>
@@ -107,6 +112,10 @@ html {
     width: 100% !important;
     max-width: 100%;
     height: auto !important;
+  }
+  pre,
+  code {
+    overflow-x: auto !important;
   }
 }
 </style>

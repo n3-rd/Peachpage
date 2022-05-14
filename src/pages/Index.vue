@@ -12,10 +12,10 @@
         </q-toolbar-title>
         <q-space />
         <!-- add a dark mode toggle button -->
-        <div v-if="dark">
+        <div v-if="!dark">
           <q-btn dense flat round icon="brightness_3" @click="toggleDarkMode" />
         </div>
-        <div v-if="!dark">
+        <div v-if="dark">
           <q-btn dense flat round icon="light_mode" @click="toggleDarkMode" />
         </div>
         <!-- <a href="https://github.com/n3-rd/Peachpage" class="initial-link"> -->
@@ -25,6 +25,13 @@
           round
           icon="ion-logo-github"
           @click="openUrl('https://github.com/n3-rd/Peachpage')"
+        />
+        <q-btn
+          dense
+          flat
+          round
+          icon="ion-information-circle"
+          @click="goToPage('/About')"
         />
         <!-- </a> -->
       </q-toolbar>
@@ -92,6 +99,9 @@ export default defineComponent({
     },
     openUrl(link) {
       openURL(link);
+    },
+    goToPage(page) {
+      this.$router.push(page);
     },
   },
   mounted() {

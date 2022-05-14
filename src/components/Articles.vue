@@ -45,8 +45,12 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>{{ article.title }}</q-item-label>
-            <q-item-label caption lines="2">
+            <q-item-label class="ellipsis article-title">
+              <q-tooltip>
+                {{ article.title }} </q-tooltip
+              >{{ article.title }}</q-item-label
+            >
+            <q-item-label class="ellipsis" caption lines="2">
               {{ article.source }}
             </q-item-label>
           </q-item-section>
@@ -128,3 +132,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.q-list {
+  margin-bottom: 0;
+}
+.article-title {
+  font-weight: 600;
+  opacity: 0.8;
+}
+</style>
