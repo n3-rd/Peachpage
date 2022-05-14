@@ -26,6 +26,8 @@
 import { liveQuery } from "dexie";
 import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
+import Prism from "prismjs";
+
 export default {
   data() {
     return {
@@ -40,7 +42,7 @@ export default {
       image.addEventListener("load", () => {
         //  set explicit height and width for images
         image.style.height = "auto";
-        image.style.width = "fit-content";
+        image.style.maxWidth = "100%";
       });
     });
   },
