@@ -144,7 +144,7 @@ module.exports = configure(function (ctx) {
 
       manifest: {
         name: `Peachpage`,
-        short_name: `Jeje`,
+        short_name: `Peachpage`,
         description: `Save articles to read later, on the web!`,
         display: "standalone",
         orientation: "portrait",

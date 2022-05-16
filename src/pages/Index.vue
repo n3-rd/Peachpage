@@ -2,32 +2,29 @@
   <q-layout view="hHh LpR fFf">
     <q-header bordered>
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+        <q-btn dense flat round icon="ion-menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title>
-          <q-avatar>
+        <q-toolbar-title class="toolbar-title">
+          <q-avatar class="gt-sm app-icon">
             <img src="peachpage-icon.svg" />
           </q-avatar>
           Peachpage
         </q-toolbar-title>
-        <q-space />
         <!-- add a dark mode toggle button -->
         <div v-if="!dark">
-          <q-btn dense flat round icon="brightness_3" @click="toggleDarkMode" />
+          <q-btn flat round icon="brightness_3" @click="toggleDarkMode" />
         </div>
         <div v-if="dark">
-          <q-btn dense flat round icon="light_mode" @click="toggleDarkMode" />
+          <q-btn flat round icon="light_mode" @click="toggleDarkMode" />
         </div>
         <!-- <a href="https://github.com/n3-rd/Peachpage" class="initial-link"> -->
         <q-btn
-          dense
           flat
           round
           icon="ion-logo-github"
           @click="openUrl('https://github.com/n3-rd/Peachpage')"
         />
         <q-btn
-          dense
           flat
           round
           icon="ion-information-circle"
@@ -37,7 +34,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left">
       <!-- drawer content -->
       <!-- <NoArticles /> -->
       <Articles />
@@ -113,3 +110,15 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.toolbar-title {
+  font-weight: 600;
+  opacity: 0.9;
+}
+.q-toolbar {
+  opacity: 0.9;
+}
+.app-icon {
+  vertical-align: bottom;
+}
+</style>

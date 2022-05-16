@@ -5,7 +5,7 @@
       <div
         v-for="article in articles"
         :key="article.id"
-        class="q-py-sm cursor-pointer"
+        class="article-container q-my-sm q-px-sm cursor-pointer"
         @click="
           setCurrentArticle(
             article.id,
@@ -25,7 +25,7 @@
             <template v-slot:avatar>
               <q-icon name="delete" color="negative" />
 
-              <q-list style="min-width: 100px">
+              <q-list>
                 <q-item
                   clickable
                   v-close-popup
@@ -37,7 +37,7 @@
             </template>
           </q-banner>
         </q-popup-proxy>
-        <q-item>
+        <q-item v-ripple:accent>
           <q-item-section top avatar>
             <q-avatar color="primary">
               <img :src="article.image" alt="" />
@@ -46,8 +46,7 @@
 
           <q-item-section>
             <q-item-label class="ellipsis article-title">
-              <q-tooltip>
-                {{ article.title }} </q-tooltip
+              <q-tooltip> {{ article.title }} </q-tooltip
               >{{ article.title }}</q-item-label
             >
             <q-item-label class="ellipsis" caption lines="2">
@@ -58,9 +57,9 @@
           <q-item-section side top>
             <q-item-label caption>
               <span v-if="article.ttr > 60">
-                {{ Math.floor(article.ttr / 60) }} minutes
+                {{ Math.floor(article.ttr / 60) }}m
               </span>
-              <span v-else> {{ article.ttr }} seconds </span>
+              <span v-else> {{ article.ttr }}s </span>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -140,5 +139,8 @@ export default {
 .article-title {
   font-weight: 600;
   opacity: 0.8;
+}
+.article-container {
+  border-radius: 26px;
 }
 </style>
