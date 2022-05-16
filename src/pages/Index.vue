@@ -36,7 +36,10 @@
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left">
       <!-- drawer content -->
-      <!-- <NoArticles /> -->
+
+      <div v-if="NoArticles === true">
+        <NoArticles class="noArticles" />
+      </div>
       <Articles />
       <AddArticle />
     </q-drawer>
@@ -50,6 +53,7 @@
 <script>
 import { defineComponent } from "vue";
 import { Dark } from "quasar";
+import { db } from "../db";
 
 import NoArticles from "../components/content-holders/NoArticles.vue";
 import AddArticle from "../components/AddArticle.vue";
@@ -60,7 +64,7 @@ import { openURL } from "quasar";
 export default defineComponent({
   name: "PageIndex",
   components: {
-    // NoArticles,
+    NoArticles,
     AddArticle,
     Articles,
     ArticleView,
@@ -69,6 +73,7 @@ export default defineComponent({
     return {
       leftDrawerOpen: false,
       dark: Dark.isActive,
+      NoArticles: false,
     };
   },
   methods: {
@@ -100,6 +105,22 @@ export default defineComponent({
     goToPage(page) {
       this.$router.push(page);
     },
+    checkIfArticleExists() {
+      db.articles.count().then((count) => {
+        if (count === 0) {
+          this.NoArticles = true;
+          console.log(count);
+        }
+      });
+    },
+    removeNoArticles() {
+      db.articles.count().then((count) => {
+        if (!count === 0) {
+          this.NoArticles = false;
+          console.log(count);
+        }
+      });
+    },
   },
   mounted() {
     if (localStorage.getItem("dark") === "true") {
@@ -107,6 +128,12 @@ export default defineComponent({
     } else {
       this.setLightMode();
     }
+    this.checkIfArticleExists();
+    this.removeNoArticles();
+  },
+  updated() {
+    this.checkIfArticleExists();
+    this.removeNoArticles();
   },
 });
 </script>

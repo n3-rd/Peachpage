@@ -7,7 +7,14 @@ $color-5: #ffcf99;
 
 $light-text: #0f0f0f;
 $dark-text: #f0f0f0;
-
+* {
+  font-display: swap !important;
+}
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Montserrat:wght@500&display=swap");
+* {
+  font-family: "Lato", sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
 a {
   color: $color-2;
 }
@@ -29,6 +36,9 @@ a {
 
       position: relative;
     }
+  }
+  .q-drawer {
+    border-right: 0.1em #c0c0c0 solid;
   }
 }
 .body--dark {

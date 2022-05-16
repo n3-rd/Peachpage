@@ -60,11 +60,7 @@ export default {
     formatTitles() {
       const h1 = document.querySelectorAll("h1, h2");
       const articleTitle = document.querySelectorAll(".articleTitle");
-
-      console.log(h1.textContent);
-      console.log(articleTitle.textContent);
       if (h1.textContent == articleTitle.textContent) {
-        console.log(h1);
         h1.forEach((tag) => {
           tag.style.display = "none";
         });
@@ -81,12 +77,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Montserrat:wght@500&display=swap");
-* {
-  font-family: "Lato", sans-serif;
-  font-family: "Montserrat", sans-serif;
-}
-
 html {
   font-size: 100%;
 } /*16px*/

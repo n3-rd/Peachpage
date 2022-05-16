@@ -60,7 +60,9 @@ export default {
         message: "Fetching article...",
         type: "info",
       });
-      fetch(`https://article-scrapper.glitch.me?url=${this.articleLink}`)
+      fetch(
+        `https://n3rd-article-scraper.herokuapp.com/?url=${this.articleLink}`
+      )
         .then((response) => response.json())
         .then((formattedArticle) => {
           if (formattedArticle.error === 0) {
