@@ -37,7 +37,7 @@
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left">
       <!-- drawer content -->
 
-      <div v-if="NoArticles === true">
+      <div v-if="noArticles === true">
         <NoArticles class="noArticles" />
       </div>
       <Articles />
@@ -73,7 +73,7 @@ export default defineComponent({
     return {
       leftDrawerOpen: false,
       dark: Dark.isActive,
-      NoArticles: false,
+      noArticlesIllustration: false,
     };
   },
   methods: {
@@ -108,15 +108,15 @@ export default defineComponent({
     checkIfArticleExists() {
       db.articles.count().then((count) => {
         if (count === 0) {
-          this.NoArticles = true;
+          this.noArticlesIllustration = true;
           console.log(count);
         }
       });
     },
-    removeNoArticles() {
+    removenoArticlesIllustration() {
       db.articles.count().then((count) => {
         if (!count === 0) {
-          this.NoArticles = false;
+          this.noArticlesIllustration = false;
           console.log(count);
         }
       });
@@ -129,11 +129,19 @@ export default defineComponent({
       this.setLightMode();
     }
     this.checkIfArticleExists();
-    this.removeNoArticles();
+    this.removenoArticlesIllustration();
+    if (!localStorage.getItem("addedArticle?")) {
+      localStorage.setItem("addedArticle?", "false");
+      this.noArticlesIllustration = true;
+    } else if (localStorage.getItem("addedArticle?") === "true") {
+      this.noArticlesIllustration = false;
+    } else if (localStorage.getItem("addedArticle?") === "false") {
+      this.noArticlesIllustration = true;
+    }
   },
   updated() {
     this.checkIfArticleExists();
-    this.removeNoArticles();
+    this.removenoArticlesIllustration();
   },
 });
 </script>

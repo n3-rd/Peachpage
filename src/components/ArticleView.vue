@@ -163,21 +163,25 @@ export default {
   },
   updated() {
     this.formatTitles();
-    setTimeout(() => {
-      (this.url = document.querySelector(".article-url").textContent),
-        (this.title = document.querySelector(".article-title").textContent),
-        (this.author = document.querySelector(".article-author").textContent);
-    }, 3000);
+    if (localStorage.getItem("addedArticle?") == "true") {
+      setTimeout(() => {
+        (this.url = document.querySelector(".article-url").textContent),
+          (this.title = document.querySelector(".article-title").textContent),
+          (this.author = document.querySelector(".article-author").textContent);
+      }, 3000);
+    }
   },
   mounted() {
     this.formatImages();
     this.formatPreTags();
     this.formatTitles();
-    setTimeout(() => {
-      (this.url = document.querySelector(".article-url").textContent),
-        (this.title = document.querySelector(".article-title").textContent),
-        (this.author = document.querySelector(".article-author").textContent);
-    }, 3000);
+    if (localStorage.getItem("addedArticle?") == "true") {
+      setTimeout(() => {
+        (this.url = document.querySelector(".article-url").textContent),
+          (this.title = document.querySelector(".article-title").textContent),
+          (this.author = document.querySelector(".article-author").textContent);
+      }, 3000);
+    }
   },
 };
 </script>

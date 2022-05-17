@@ -77,6 +77,7 @@ export default {
               });
             }, 3000);
             this.articleLink = "";
+            localStorage.setItem("addedArticle?", "true");
           } else {
             console.log("something went wrong");
             setTimeout(() => {
