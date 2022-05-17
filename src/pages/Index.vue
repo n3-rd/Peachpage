@@ -37,7 +37,7 @@
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left">
       <!-- drawer content -->
 
-      <div v-if="noArticles === true">
+      <div v-if="noArticlesIllustration === true">
         <NoArticles class="noArticles" />
       </div>
       <Articles />
@@ -105,13 +105,8 @@ export default defineComponent({
     goToPage(page) {
       this.$router.push(page);
     },
-    checkIfArticleExists() {
-      db.articles.count().then((count) => {
-        if (count === 0) {
-          this.noArticlesIllustration = true;
-          console.log(count);
-        }
-      });
+    async checkIfArticleExists() {
+      await console.log(db.articles);
     },
     removenoArticlesIllustration() {
       db.articles.count().then((count) => {
@@ -129,20 +124,8 @@ export default defineComponent({
       this.setLightMode();
     }
     this.checkIfArticleExists();
-    this.removenoArticlesIllustration();
-    if (!localStorage.getItem("addedArticle?")) {
-      localStorage.setItem("addedArticle?", "false");
-      this.noArticlesIllustration = true;
-    } else if (localStorage.getItem("addedArticle?") === "true") {
-      this.noArticlesIllustration = false;
-    } else if (localStorage.getItem("addedArticle?") === "false") {
-      this.noArticlesIllustration = true;
-    }
   },
-  updated() {
-    this.checkIfArticleExists();
-    this.removenoArticlesIllustration();
-  },
+  updated() {},
 });
 </script>
 <style lang="scss" scoped>
