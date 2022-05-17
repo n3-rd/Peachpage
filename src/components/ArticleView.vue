@@ -6,7 +6,7 @@
       </h4>
       <div class="text_small text-center q-mb-lg">
         <span
-          >By {{ article.author }}
+          >By <span class="article-author">{{ article.author }} </span>
           <span v-if="article.date">on {{ article.date }}</span></span
         >
         <div class="text_small text-center">
@@ -15,8 +15,19 @@
             <a :href="article.url" target="_blank">
               {{ article.url }}
             </a>
+            <div class="article-url">{{ article.url }}</div>
           </span>
         </div>
+      </div>
+      <div class="q-my-lg action-buttons">
+        <q-icon
+          name="ion-share"
+          class="q-px-sm"
+          size="sm"
+          @click="showShareDialog()"
+        />
+        <q-icon name="ion-link" class="q-px-sm" size="sm" />
+        <!-- <q-icon name="ion-share" class="q-px-sm" /> -->
       </div>
 
       <div v-html="article.content" class="q-px-md article"></div>
@@ -28,7 +39,7 @@
 import { liveQuery } from "dexie";
 import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
-import Prism from "prismjs";
+import { BottomSheet } from "quasar";
 
 export default {
   data() {
@@ -36,6 +47,9 @@ export default {
       currentArticle: useObservable(
         liveQuery(() => db.currentArticle.toArray())
       ),
+      url: "",
+      title: "",
+      author: "",
     };
   },
   methods: {
@@ -66,12 +80,99 @@ export default {
         });
       }
     },
+    copyLink() {
+      const url = document.querySelector(".article-url").textContent;
+      navigator.clipboard.writeText(url);
+    },
+    shareTwitter() {
+      window.open(
+        `https://twitter.com/intent/tweet?text=Checkout this article, ${this.title} by ${this.author}.&url=${this.url}`,
+        "_blank"
+      );
+    },
+    shareFacebook() {
+      window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${this.url}&quote=Checkout this article, ${this.title} by ${this.author}.`,
+        "_blank"
+      );
+    },
+    shareWhatsapp() {
+      window.open(
+        `https://wa.me/?text=Checkout this article, ${this.title} by ${this.author}.%5Cn%20${this.url}`,
+        "_blank"
+      );
+    },
+    shareTelegram() {
+      window.open(
+        `https://telegram.me/share/url?url=${this.url}&text=Checkout this article, ${this.title} by ${this.author}.`,
+        "_blank"
+      );
+    },
+    shareEmail() {
+      window.open(
+        `mailto:?subject=Checkout this article, ${this.title} by ${this.author}.&body=${this.url}`,
+        "_blank"
+      );
+    },
+    shareReddit() {
+      window.open(
+        `https://www.reddit.com/submit?url=${this.url}&title=Checkout this article, ${this.title} by ${this.author}.`,
+        "_blank"
+      );
+    },
+    showShareDialog() {
+      BottomSheet.create({
+        // title: "Share",
+        message: "share",
+        actions: [
+          {
+            img: "socials/5296514_bird_tweet_twitter_twitter logo_icon.svg",
+            label: "Twitter",
+            handler: () => this.shareTwitter(),
+          },
+          {
+            img: "socials/5296499_fb_facebook_facebook logo_icon.svg",
+            label: "Facebook",
+            handler: () => this.shareFacebook(),
+          },
+          {
+            img: "socials/5296520_bubble_chat_mobile_whatsapp_whatsapp logo_icon.svg",
+            label: "Whatsapp",
+            handler: () => this.shareWhatsapp(),
+          },
+          {
+            img: "socials/3787425_telegram_logo_messanger_social_social media_icon.svg",
+            label: "Telegram",
+            handler: () => this.shareTelegram(),
+          },
+          {
+            img: "socials/4202011_email_gmail_mail_logo_social_icon.svg",
+            label: "Email",
+            handler: () => this.shareEmail(),
+          },
+          {
+            img: "socials/3225187_app_logo_media_popular_reddit_icon.svg",
+            label: "Reddit",
+            handler: () => this.shareReddit(),
+          },
+        ],
+      }).onOk((action) => {
+        action.handler();
+      });
+    },
   },
   updated() {
+    this.formatTitles();
+  },
+  mounted() {
     this.formatImages();
     this.formatPreTags();
     this.formatTitles();
-    Prism.highlightAll();
+    setTimeout(() => {
+      (this.url = document.querySelector(".article-url").textContent),
+        (this.title = document.querySelector(".article-title").textContent),
+        (this.author = document.querySelector(".article-author").textContent);
+    }, 3000);
   },
 };
 </script>
@@ -136,6 +237,15 @@ html {
   .article-title {
     font-size: 2.441rem !important;
     font-weight: 600;
+  }
+}
+.action-buttons {
+  width: 100%;
+  opacity: 0.7;
+  // set mobile viewport width
+  @media (max-width: 576px) {
+    width: 100%;
+    text-align: center;
   }
 }
 </style>
