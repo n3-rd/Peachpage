@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="showIllustration">
+      <NoArticles />
+    </div>
     <!-- create a list for articles -->
     <q-list>
       <div
@@ -45,7 +48,7 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label class="ellipsis article-title">
+            <q-item-label class="ellipsis article-title-info">
               <q-tooltip> {{ article.title }} </q-tooltip
               >{{ article.title }}</q-item-label
             >
@@ -73,11 +76,17 @@ import { liveQuery } from "dexie";
 import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
 import { Notify } from "quasar";
+import NoArticles from "../components/content-holders/NoArticles.vue";
 
 export default {
+  components: {
+    NoArticles,
+  },
   data() {
     return {
       articles: useObservable(liveQuery(() => db.articles.toArray())),
+      articlesList: "",
+      showIllustration: false,
     };
   },
   methods: {
@@ -129,6 +138,32 @@ export default {
       }
     },
   },
+  mounted() {
+    setTimeout(() => {
+      this.articlesList = document.querySelector(".q-list");
+      console.log(this.articlesList.children.length);
+      setInterval(() => {
+        if (this.articlesList.children.length === 0) {
+          this.showIllustration = true;
+        } else {
+          this.showIllustration = false;
+        }
+      }, 100);
+    }, 2000);
+  },
+  updated() {
+    setTimeout(() => {
+      this.articlesList = document.querySelector(".q-list");
+      console.log(this.articlesList.children.length);
+      setInterval(() => {
+        if (this.articlesList.children.length === 0) {
+          this.showIllustration = true;
+        } else {
+          this.showIllustration = false;
+        }
+      }, 100);
+    }, 2000);
+  },
 };
 </script>
 
@@ -136,7 +171,7 @@ export default {
 .q-list {
   margin-bottom: 0;
 }
-.article-title {
+.article-title-info {
   font-weight: 600;
   opacity: 0.8;
 }

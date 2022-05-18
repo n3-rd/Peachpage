@@ -22,7 +22,7 @@
       <div class="q-my-lg action-buttons">
         <q-icon
           name="ion-share"
-          class="q-px-sm"
+          class="q-px-sm cursor-pointer"
           size="sm"
           @click="showShareDialog()"
         />
@@ -56,12 +56,19 @@ export default {
     // format images
     formatImages() {
       const images = document.querySelectorAll("img");
+      const Iframes = document.querySelectorAll("iframe");
       images.forEach((image) => {
         image.addEventListener("load", () => {
           //  set explicit height and width for images
           image.style.height = "auto";
           image.style.maxWidth = "100%";
         });
+      });
+      Iframes.forEach((iframe) => {
+        iframe.style.height = "auto";
+        iframe.style.maxWidth = "100%";
+        iframe.attributes.width = "100%";
+        iframe.attributes.height = "auto";
       });
     },
     // format <pre> tags
@@ -163,25 +170,23 @@ export default {
   },
   updated() {
     this.formatTitles();
-    if (localStorage.getItem("addedArticle?") == "true") {
-      setTimeout(() => {
-        (this.url = document.querySelector(".article-url").textContent),
-          (this.title = document.querySelector(".article-title").textContent),
-          (this.author = document.querySelector(".article-author").textContent);
-      }, 3000);
-    }
+
+    setTimeout(() => {
+      (this.url = document.querySelector(".article-url").textContent),
+        (this.title = document.querySelector(".article-title").textContent),
+        (this.author = document.querySelector(".article-author").textContent);
+    }, 1200);
   },
   mounted() {
     this.formatImages();
     this.formatPreTags();
     this.formatTitles();
-    if (localStorage.getItem("addedArticle?") == "true") {
-      setTimeout(() => {
-        (this.url = document.querySelector(".article-url").textContent),
-          (this.title = document.querySelector(".article-title").textContent),
-          (this.author = document.querySelector(".article-author").textContent);
-      }, 3000);
-    }
+
+    setTimeout(() => {
+      (this.url = document.querySelector(".article-url").textContent),
+        (this.title = document.querySelector(".article-title").textContent),
+        (this.author = document.querySelector(".article-author").textContent);
+    }, 1200);
   },
 };
 </script>

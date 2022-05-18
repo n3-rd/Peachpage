@@ -37,9 +37,6 @@
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left">
       <!-- drawer content -->
 
-      <div v-if="noArticlesIllustration === true">
-        <NoArticles class="noArticles" />
-      </div>
       <Articles />
       <AddArticle />
     </q-drawer>
@@ -55,7 +52,7 @@ import { defineComponent } from "vue";
 import { Dark } from "quasar";
 import { db } from "../db";
 
-import NoArticles from "../components/content-holders/NoArticles.vue";
+// import NoArticles from "../components/content-holders/NoArticles.vue";
 import AddArticle from "../components/AddArticle.vue";
 import Articles from "../components/Articles.vue";
 import ArticleView from "../components/ArticleView.vue";
@@ -64,7 +61,7 @@ import { openURL } from "quasar";
 export default defineComponent({
   name: "PageIndex",
   components: {
-    NoArticles,
+    // NoArticles,
     AddArticle,
     Articles,
     ArticleView,
