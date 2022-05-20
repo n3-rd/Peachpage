@@ -4,7 +4,7 @@
       <q-card style="min-width: 350px">
         <q-card-section>
           <div class="text-h6">Link to article</div>
-          <q-btn class="absolute-right"
+          <q-btn class="absolute-right" @click="pasteToClipboard()"
             ><q-icon
               name="ion-clipboard"
               class="q-ma-lg"
@@ -48,6 +48,7 @@
 <script>
 import { db } from "../db";
 import { Notify } from "quasar";
+import clipboard from "clipboardy";
 
 export default {
   name: "AddArticle",
@@ -124,7 +125,10 @@ export default {
         console.log(e);
       }
     },
-    pasteToClipboard() {},
+    pasteToClipboard() {
+      console.log(clipboard.read() + " copied to clipboard");
+      // this.articleLink = clipboard.read();
+    },
   },
 };
 </script>

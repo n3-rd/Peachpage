@@ -1,6 +1,52 @@
 <template>
   <div>
     <div v-for="article in currentArticle" :key="article.id" class="q-px-lg">
+      <q-page-sticky position="bottom-right" :offset="[18, 18]" class="z-max">
+        <q-btn fab icon="ion-help" color="info" @click="openForm()" />
+      </q-page-sticky>
+
+      <q-dialog v-model="formDialog">
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <form name="contact" netlify>
+              <div class="text-h6">Report error in article</div>
+              <p>
+                <q-input
+                  v-model="formText"
+                  type="textarea"
+                  name="text"
+                  label="Your feedback"
+                  color="accent "
+                />
+              </p>
+              <p>
+                <q-input
+                  v-model="formEmail"
+                  type="email"
+                  name="email"
+                  label="Your Email"
+                  color="accent"
+                />
+              </p>
+              <q-input outlined label="link" :dense="dense" readonly>
+                {{ article.url }}
+              </q-input>
+              <p>
+                <q-btn
+                  class="q-my-md"
+                  color="accent"
+                  type="submit"
+                  icon="check"
+                  label="Submit"
+                  @click="onClick"
+                  v-close-popup
+                />
+              </p>
+            </form>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+
       <h4 class="text-center q-px-lg article-title" style="font-size: 2.441rem">
         {{ article.title }}
       </h4>
@@ -8,8 +54,8 @@
         <span
           >By <span class="article-author">{{ article.author }} </span>
           <span v-if="article.date"
-            >on {{ formatDate(article.date) }}</span
-          ></span
+            >on {{ formatDate(article.date) }}
+          </span></span
         >
         <div class="text_small text-center">
           <span v-if="article.source">{{ article.source }}</span>
@@ -32,6 +78,15 @@
         <!-- <q-icon name="ion-share" class="q-px-sm" /> -->
       </div>
 
+      <div v-if="article.image" id="article-image">
+        <q-img
+          :src="article.image"
+          :ratio="16 / 9"
+          spinner-color="accent"
+          spinner-size="82px"
+        />
+      </div>
+
       <div v-html="article.content" class="q-px-md article"></div>
     </div>
   </div>
@@ -43,6 +98,7 @@ import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
 import { BottomSheet } from "quasar";
 import moment from "moment";
+import { Notify } from "quasar";
 
 // format 2020-03-23T23:39:13.179Z
 function formatDate(date) {
@@ -58,6 +114,9 @@ export default {
       url: "",
       title: "",
       author: "",
+      formText: "",
+      formEmail: "",
+      formDialog: false,
     };
   },
   methods: {
@@ -177,6 +236,14 @@ export default {
     },
     formatDate(date) {
       return moment(date).format("MMMM Do YYYY");
+    },
+    openForm() {
+      this.formDialog = true;
+    },
+    showFormSubmitted() {
+      (this.formText = ""),
+        (this.formEmail = ""),
+        Notify.create("Feedback shared with developer!");
     },
   },
   updated() {
