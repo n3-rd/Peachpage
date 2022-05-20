@@ -7,7 +7,9 @@
       <div class="text_small text-center q-mb-lg">
         <span
           >By <span class="article-author">{{ article.author }} </span>
-          <span v-if="article.date">on {{ article.date }}</span></span
+          <span v-if="article.date"
+            >on {{ formatDate(article.date) }}</span
+          ></span
         >
         <div class="text_small text-center">
           <span v-if="article.source">{{ article.source }}</span>
@@ -40,6 +42,12 @@ import { liveQuery } from "dexie";
 import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
 import { BottomSheet } from "quasar";
+import moment from "moment";
+
+// format 2020-03-23T23:39:13.179Z
+function formatDate(date) {
+  return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+}
 
 export default {
   data() {
@@ -166,6 +174,9 @@ export default {
       }).onOk((action) => {
         action.handler();
       });
+    },
+    formatDate(date) {
+      return moment(date).format("MMMM Do YYYY");
     },
   },
   updated() {

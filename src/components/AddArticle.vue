@@ -4,6 +4,14 @@
       <q-card style="min-width: 350px">
         <q-card-section>
           <div class="text-h6">Link to article</div>
+          <q-btn class="absolute-right"
+            ><q-icon
+              name="ion-clipboard"
+              class="q-ma-lg"
+              size="xs"
+              color="accent"
+              dense
+          /></q-btn>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -42,6 +50,7 @@ import { db } from "../db";
 import { Notify } from "quasar";
 
 export default {
+  name: "AddArticle",
   data() {
     return {
       articleLinkDialog: false,
@@ -115,6 +124,7 @@ export default {
         console.log(e);
       }
     },
+    pasteToClipboard() {},
   },
 };
 </script>

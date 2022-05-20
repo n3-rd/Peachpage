@@ -53,7 +53,7 @@ import { Dark } from "quasar";
 import { db } from "../db";
 
 // import NoArticles from "../components/content-holders/NoArticles.vue";
-import AddArticle from "../components/AddArticle.vue";
+import AddArticle from "../components/AddArticle";
 import Articles from "../components/Articles.vue";
 import ArticleView from "../components/ArticleView.vue";
 import { openURL } from "quasar";

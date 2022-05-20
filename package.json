@@ -13,11 +13,14 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "@vueuse/rxjs": "^8.4.2",
+    "clipboardy": "^3.0.0",
     "core-js": "^3.6.5",
     "dexie": "^3.2.2",
+    "moment": "^2.29.3",
     "prismjs": "^1.28.0",
     "quasar": "^2.0.0",
     "rxjs": "^7.5.5",
+    "time-js": "^0.0.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
