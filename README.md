@@ -37,10 +37,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### Contact Developer
 
-[Twitter](twitter.com/web_n3rd)
+[Twitter](https://twitter.com/web_n3rd)
 [LinkedIn](https://www.linkedin.com/in/godwin-jemegah-759866203)
 [Email](mailto:godwinjdayo@gmail.com)
-[Github](github.com/n3-rd)
+[Github](https://github.com/n3-rd)
 
 ## Development Guide
 
