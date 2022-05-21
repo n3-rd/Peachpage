@@ -18,6 +18,14 @@ $dark-text: #f0f0f0;
 a {
   color: $color-2;
 }
+body {
+  // prevent x overflow and formatting for text
+  overflow-x: hidden;
+  // wrap text in divs to prevent overflow
+  & > div {
+    overflow-wrap: break-word;
+  }
+}
 .initial-link {
   // color: initial;
   text-decoration: none;
