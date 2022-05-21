@@ -4,14 +4,6 @@
       <q-card style="min-width: 350px">
         <q-card-section>
           <div class="text-h6">Link to article</div>
-          <q-btn class="absolute-right" @click="pasteToClipboard()"
-            ><q-icon
-              name="ion-clipboard"
-              class="q-ma-lg"
-              size="xs"
-              color="accent"
-              dense
-          /></q-btn>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -124,10 +116,6 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    },
-    pasteToClipboard() {
-      console.log(clipboard.read() + " copied to clipboard");
-      // this.articleLink = clipboard.read();
     },
   },
 };
