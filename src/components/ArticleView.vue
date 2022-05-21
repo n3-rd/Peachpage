@@ -1,5 +1,38 @@
 <template>
   <div>
+    <div>
+      <q-dialog v-model="newUserDialog">
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="q-pa-md">
+              <div class="text-right">
+                <q-icon name="ion-close" size="md" v-close-popup />
+              </div>
+              <h4>Welcome To Peachpage!</h4>
+              <div class="text-subtitle">
+                Here you can save articles you find interesting to read later.
+              </div>
+              <div>
+                Articles will be saved in your device, so you can access them
+                later. You can also share them with your friends.
+              </div>
+              <div>Right now, you have no articles saved.</div>
+              <div>
+                Create a new article by clicking the button in the menu.
+              </div>
+              <div>
+                <img src="help/open-menu.png" alt="open menu" /><br />
+                <img src="help/add-article.png" alt="open menu" />
+              </div>
+              <div>Right Click or long press on an article to delete it.</div>
+              <div>
+                <img src="help/delete-article.png" alt="open menu" />
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+    </div>
     <div v-for="article in currentArticle" :key="article.id" class="q-px-lg">
       <q-page-sticky position="bottom-right" :offset="[18, 18]" class="z-max">
         <q-btn fab icon="ion-help" color="info" @click="openForm()" />
@@ -117,6 +150,7 @@ export default {
       formText: "",
       formEmail: "",
       formDialog: false,
+      newUserDialog: false,
     };
   },
   methods: {
@@ -243,6 +277,14 @@ export default {
         (this.formEmail = ""),
         Notify.create("Feedback shared with developer!");
     },
+    checkNewUser() {
+      if (!localStorage.getItem("newUserDialog")) {
+        this.newUserDialog = true;
+        localStorage.setItem("newUserDialog", "false");
+      } else {
+        this.newUserDialog = false;
+      }
+    },
   },
   updated() {
     this.formatTitles();
@@ -257,7 +299,7 @@ export default {
     this.formatImages();
     this.formatPreTags();
     this.formatTitles();
-
+    this.checkNewUser();
     setTimeout(() => {
       (this.url = document.querySelector(".article-url").textContent),
         (this.title = document.querySelector(".article-title").textContent),
