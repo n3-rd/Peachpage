@@ -8,7 +8,7 @@
       <q-dialog v-model="formDialog">
         <q-card style="min-width: 350px">
           <q-card-section>
-            <form name="contact" netlify>
+            <q-form name="Contact Form" @submit="showFormSubmitted" netlify>
               <div class="text-h6">Report error in article</div>
               <p>
                 <q-input
@@ -35,35 +35,35 @@
                 <q-btn
                   class="q-my-md"
                   color="accent"
-                  type="submit"
-                  icon="check"
                   label="Submit"
-                  @click="onClick"
+                  type="submit"
                   v-close-popup
                 />
               </p>
-            </form>
+            </q-form>
           </q-card-section>
         </q-card>
       </q-dialog>
 
-      <h4 class="text-center q-px-lg article-title" style="font-size: 2.441rem">
+      <div
+        class="text-center q-px-lg article-title q-mb-md"
+        style="font-size: 2.141rem"
+      >
         {{ article.title }}
-      </h4>
+      </div>
       <div class="text_small text-center q-mb-lg">
-        <span
-          >By <span class="article-author">{{ article.author }} </span>
-          <span v-if="article.date"
-            >on {{ formatDate(article.date) }}
-          </span></span
+        <span>
+          <span class="article-author" v-if="article.author"
+            >By {{ article.author }}
+          </span>
+          <div v-if="article.date">{{ formatDate(article.date) }}</div></span
         >
         <div class="text_small text-center">
           <span v-if="article.source">{{ article.source }}</span>
           <span v-if="article.url" class="q-px-md">
-            <a :href="article.url" target="_blank">
+            <a :href="article.url" class="article-url" target="_blank">
               {{ article.url }}
             </a>
-            <div class="article-url">{{ article.url }}</div>
           </span>
         </div>
       </div>
@@ -123,19 +123,16 @@ export default {
     // format images
     formatImages() {
       const images = document.querySelectorAll("img");
-      const Iframes = document.querySelectorAll("iframe");
       images.forEach((image) => {
         image.addEventListener("load", () => {
+          // remove image height and width attributes
+          image.removeAttribute("height");
+          image.removeAttribute("width");
+
           //  set explicit height and width for images
-          image.style.height = "auto";
-          image.style.maxWidth = "100%";
+          image.style.height = "auto!important";
+          image.style.maxWidth = "100%!important";
         });
-      });
-      Iframes.forEach((iframe) => {
-        iframe.style.height = "auto";
-        iframe.style.maxWidth = "100%";
-        iframe.attributes.width = "100%";
-        iframe.attributes.height = "auto";
       });
     },
     // format <pre> tags
@@ -240,6 +237,7 @@ export default {
     openForm() {
       this.formDialog = true;
     },
+
     showFormSubmitted() {
       (this.formText = ""),
         (this.formEmail = ""),
@@ -264,7 +262,12 @@ export default {
       (this.url = document.querySelector(".article-url").textContent),
         (this.title = document.querySelector(".article-title").textContent),
         (this.author = document.querySelector(".article-author").textContent);
+      this.formatImages();
+      this.formatPreTags();
+      this.formatTitles();
     }, 1200);
+
+    // replace img tags with q-img
   },
 };
 </script>
