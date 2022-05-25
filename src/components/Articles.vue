@@ -3,6 +3,34 @@
     <div v-if="showIllustration">
       <NoArticles />
     </div>
+
+    <!-- <q-dialog v-model="bookmarksDialog" position="left">
+      <q-card style="width: 350px">
+        <q-btn color="accent" icon="ion-arrow-back" v-close-popup />
+
+        <q-card-section class="row items-center no-wrap"> </q-card-section>
+      </q-card>
+    </q-dialog> -->
+
+    <q-drawer show-if-above v-model="bookmarksDialog" side="left">
+      <!-- drawer content -->
+      <q-icon
+        color="accent"
+        name="ion-arrow-back"
+        size="md"
+        class="q-mr-sm q-pa-sm cursor-pointer"
+        @click="closeBookmarksDialog"
+      />
+
+      <Bookmarks />
+    </q-drawer>
+
+    <q-item clickable v-ripple @click="openBookmarksDialog">
+      <q-item-section>Bookmarks</q-item-section>
+      <q-item-section avatar>
+        <q-icon color="accent" name="ion-arrow-forward" />
+      </q-item-section>
+    </q-item>
     <!-- create a list for articles -->
     <q-list>
       <div
@@ -42,7 +70,7 @@
         </q-popup-proxy>
         <q-item v-ripple:accent>
           <q-item-section top avatar>
-            <q-avatar color="primary">
+            <q-avatar color="accent">
               <img :src="article.image" alt="" />
             </q-avatar>
           </q-item-section>
@@ -65,6 +93,16 @@
               <span v-else> {{ article.ttr }}s </span>
             </q-item-label>
           </q-item-section>
+          <q-item-section side v-if="article.bookmark == false">
+            <q-icon name="bookmark" @click="toggleBookmark(article.id)" />
+          </q-item-section>
+          <q-item-section side v-if="article.bookmark == true">
+            <q-icon
+              name="bookmark"
+              color="positive"
+              @click="toggleBookmark(article.id)"
+            />
+          </q-item-section>
         </q-item>
       </div>
     </q-list>
@@ -77,16 +115,19 @@ import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db";
 import { Notify } from "quasar";
 import NoArticles from "../components/content-holders/NoArticles.vue";
+import Bookmarks from "../components/Bookmarks.vue";
 
 export default {
   components: {
     NoArticles,
+    Bookmarks,
   },
   data() {
     return {
       articles: useObservable(liveQuery(() => db.articles.toArray())),
       articlesList: "",
       showIllustration: false,
+      bookmarksDialog: false,
     };
   },
   methods: {
@@ -136,6 +177,40 @@ export default {
           type: "negative",
         });
       }
+    },
+    async toggleBookmark(articleId) {
+      try {
+        console.log(db.articles);
+        // check if db.articles.bookmark is true
+        // if true, then remove bookmark
+        // if false, then add bookmark
+        const bookmark = await db.articles.get(articleId);
+        if (bookmark.bookmark) {
+          await db.articles.update(articleId, { bookmark: false });
+          Notify.create({
+            message: "Article removed from bookmarks",
+            type: "positive",
+            timeout: 3000,
+          });
+        } else {
+          await db.articles.update(articleId, { bookmark: true });
+          Notify.create({
+            message: "Article added to bookmarks",
+            type: "positive",
+            timeout: 3000,
+          });
+        }
+
+        // const id = await db.articles.update(articleId, { bookmark: true });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    openBookmarksDialog() {
+      this.bookmarksDialog = true;
+    },
+    closeBookmarksDialog() {
+      this.bookmarksDialog = false;
     },
   },
   mounted() {

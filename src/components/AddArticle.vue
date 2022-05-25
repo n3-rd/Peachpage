@@ -108,6 +108,7 @@ export default {
           url: this.parsedArticle.links[0],
           content: this.parsedArticle.content,
           ttr: this.parsedArticle.ttr,
+          bookmark: false,
         });
 
         this.status = `Article ${this.parsedArticle.title}
