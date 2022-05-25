@@ -18,7 +18,7 @@
         color="accent"
         name="ion-arrow-back"
         size="md"
-        class="q-mr-sm q-pa-sm cursor-pointer"
+        class="q-ml-md q-pa-sm cursor-pointer"
         @click="closeBookmarksDialog"
       />
 
