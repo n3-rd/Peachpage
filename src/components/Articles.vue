@@ -12,7 +12,7 @@
       </q-card>
     </q-dialog> -->
 
-    <q-drawer show-if-above v-model="bookmarksDialog" side="left">
+    <q-drawer v-model="bookmarksDialog" overlay>
       <!-- drawer content -->
       <q-icon
         color="accent"

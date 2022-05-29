@@ -77,50 +77,51 @@
           </q-card-section>
         </q-card>
       </q-dialog>
-
-      <div
-        class="text-center q-px-lg article-title q-mb-md"
-        style="font-size: 2.141rem"
-      >
-        {{ article.title }}
-      </div>
-      <div class="text_small text-center q-mb-lg">
-        <span>
-          <span class="article-author" v-if="article.author"
-            >By {{ article.author }}
-          </span>
-          <div v-if="article.date">{{ formatDate(article.date) }}</div></span
+      <div class="main-article">
+        <div
+          class="text-center q-px-lg article-title q-mb-md"
+          style="font-size: 2.141rem"
         >
-        <div class="text_small text-center">
-          <span v-if="article.source">{{ article.source }}</span>
-          <span v-if="article.url" class="q-px-md">
-            <a :href="article.url" class="article-url" target="_blank">
-              {{ article.url }}
-            </a>
-          </span>
+          {{ article.title }}
         </div>
-      </div>
-      <div class="q-my-lg action-buttons">
-        <q-icon
-          name="ion-share"
-          class="q-px-sm cursor-pointer"
-          size="sm"
-          @click="showShareDialog()"
-        />
-        <q-icon name="ion-link" class="q-px-sm" size="sm" />
-        <!-- <q-icon name="ion-share" class="q-px-sm" /> -->
-      </div>
+        <div class="text_small text-center q-mb-lg">
+          <span>
+            <span class="article-author" v-if="article.author"
+              >By {{ article.author }}
+            </span>
+            <div v-if="article.date">{{ formatDate(article.date) }}</div></span
+          >
+          <div class="text_small text-center">
+            <span v-if="article.source">{{ article.source }}</span>
+            <span v-if="article.url" class="q-px-md">
+              <a :href="article.url" class="article-url" target="_blank">
+                {{ article.url }}
+              </a>
+            </span>
+          </div>
+        </div>
+        <div class="q-my-lg action-buttons">
+          <q-icon
+            name="ion-share"
+            class="q-px-sm cursor-pointer"
+            size="sm"
+            @click="showShareDialog()"
+          />
+          <q-icon name="ion-link" class="q-px-sm" size="sm" />
+          <!-- <q-icon name="ion-share" class="q-px-sm" /> -->
+        </div>
 
-      <div v-if="article.image" id="article-image">
-        <q-img
-          :src="article.image"
-          :ratio="16 / 9"
-          spinner-color="accent"
-          spinner-size="82px"
-        />
-      </div>
+        <div v-if="article.image" id="article-image">
+          <q-img
+            :src="article.image"
+            :ratio="16 / 9"
+            spinner-color="accent"
+            spinner-size="82px"
+          />
+        </div>
 
-      <div v-html="article.content" class="q-px-md q-mt-lg article"></div>
+        <div v-html="article.content" class="q-px-md q-mt-lg article"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -314,19 +315,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "https://fonts.googleapis.com/css?family=Lato:900,700,400";
+
 html {
-  font-size: 100%;
-} /*16px*/
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-.article {
-  @import "https://fonts.googleapis.com/css?family=Lato:900,700,400";
-
-  html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
+.main-article {
   h1 {
     font-family: "Lato", sans-serif;
     font-size: 28px;
@@ -367,21 +364,22 @@ html {
   }
 
   p {
-    font-family: "proxima-nova-thin", sans serif;
+    // font-family: "proxima-nova-thin", sans serif;
     font-size: 18px;
     font-weight: 400;
     line-height: 1.6;
-    opacity: 0.7;
-    margin-top: 0px;
-    margin-bottom: 25px;
+    opacity: 1;
+    // margin-top: 0px;
+    // margin-bottom: 25px;
+    margin: 0 2em 25px 2em;
     letter-spacing: -0.3px;
     word-spacing: -0.1px;
     text-transform: none;
   }
 
-  font-weight: 400;
-  line-height: 1.75;
-  overflow-x: hidden;
+  // font-weight: 400;
+  // line-height: 1.75;
+  // overflow-x: hidden;
 
   h4 {
     font-size: 1.563rem;
@@ -390,24 +388,25 @@ html {
   h5 {
     font-size: 1.25rem;
   }
-  small,
-  .text_small {
-    font-size: 0.8rem;
-  }
-  img {
-    width: 100% !important;
-    max-width: 100%;
-    height: auto !important;
-  }
-  pre,
-  code {
-    overflow-x: auto !important;
-  }
-  .article-title {
-    font-size: 2.441rem !important;
-    font-weight: 600;
-  }
 }
+small,
+.text_small {
+  font-size: 0.8rem;
+}
+img {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+}
+pre,
+code {
+  overflow-x: auto !important;
+}
+.article-title {
+  font-size: 2.441rem !important;
+  font-weight: 600;
+}
+
 .action-buttons {
   width: 100%;
   opacity: 0.7;
@@ -415,6 +414,11 @@ html {
   @media (max-width: 576px) {
     width: 100%;
     text-align: center;
+  }
+}
+.main-title {
+  @media (max-width: $breakpoint-md-max) {
+    margin: 0 2em;
   }
 }
 </style>
