@@ -120,7 +120,7 @@
         />
       </div>
 
-      <div v-html="article.content" class="q-px-md article"></div>
+      <div v-html="article.content" class="q-px-md q-mt-lg article"></div>
     </div>
   </div>
 </template>
@@ -320,36 +320,68 @@ html {
 } /*16px*/
 
 .article {
-  font-weight: 400;
-  line-height: 1.75;
-  overflow-x: hidden;
-  p {
-    margin-bottom: 1rem;
-  }
+  @import "https://fonts.googleapis.com/css?family=Lato:900,700,400";
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    margin: 3rem 0 1.38rem;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    line-height: 1.3;
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1 {
-    margin-top: 0;
-    font-size: 3.052rem;
+    font-family: "Lato", sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.2;
+    opacity: 1;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    letter-spacing: -0.72px;
+    word-spacing: 0px;
+    text-transform: none;
   }
 
   h2 {
-    font-size: 2.441rem;
+    font-family: "Lato", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    opacity: 1;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    letter-spacing: -0.72px;
+    word-spacing: 0px;
+    text-transform: none;
   }
 
   h3 {
-    font-size: 1.953rem;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    opacity: 1;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    text-transform: none;
   }
+
+  p {
+    font-family: "proxima-nova-thin", sans serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    opacity: 0.7;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    letter-spacing: -0.3px;
+    word-spacing: -0.1px;
+    text-transform: none;
+  }
+
+  font-weight: 400;
+  line-height: 1.75;
+  overflow-x: hidden;
 
   h4 {
     font-size: 1.563rem;

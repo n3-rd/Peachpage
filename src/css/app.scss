@@ -7,6 +7,10 @@ $color-5: #ffcf99;
 
 $light-text: #0f0f0f;
 $dark-text: #f0f0f0;
+img {
+  max-width: 100%;
+  height: auto;
+}
 * {
   font-display: swap !important;
 }
