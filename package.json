@@ -16,6 +16,8 @@
     "clipboardy": "^3.0.0",
     "core-js": "^3.6.5",
     "dexie": "^3.2.2",
+    "dexie-export-import": "^1.0.3",
+    "downloadjs": "^1.4.7",
     "moment": "^2.29.3",
     "pretty-error": "^4.0.0",
     "prismjs": "^1.28.0",
