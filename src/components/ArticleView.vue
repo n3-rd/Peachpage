@@ -319,8 +319,11 @@ export default {
 
     setTimeout(() => {
       (this.url = document.querySelector(".article-url").textContent),
-        (this.title = document.querySelector(".article-title").textContent),
-        (this.author = document.querySelector(".article-author").textContent);
+        (this.title = document.querySelector(".article-title").textContent);
+
+      if (document.querySelector(".article-author")) {
+        this.author = document.querySelector(".article-author").textContent;
+      }
     }, 1200);
   },
   mounted() {
@@ -330,8 +333,10 @@ export default {
     this.checkNewUser();
     setTimeout(() => {
       (this.url = document.querySelector(".article-url").textContent),
-        (this.title = document.querySelector(".article-title").textContent),
-        (this.author = document.querySelector(".article-author").textContent);
+        (this.title = document.querySelector(".article-title").textContent);
+      if (document.querySelector(".article-author")) {
+        this.author = document.querySelector(".article-author").textContent;
+      }
       this.formatImages();
       this.formatPreTags();
       this.formatTitles();
@@ -351,6 +356,8 @@ html {
 }
 
 .main-article {
+  overflow-y: scroll;
+
   h1 {
     font-family: "Lato", sans-serif;
     font-size: 28px;
