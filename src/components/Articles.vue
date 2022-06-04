@@ -189,7 +189,7 @@ export default {
           await db.articles.update(articleId, { bookmark: false });
           Notify.create({
             message: "Article removed from bookmarks",
-            type: "positive",
+            type: "negative",
             timeout: 3000,
           });
         } else {
