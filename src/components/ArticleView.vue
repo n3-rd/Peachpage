@@ -106,8 +106,17 @@
             class="q-px-sm cursor-pointer"
             size="sm"
             @click="showShareDialog()"
-          />
-          <q-icon name="ion-link" class="q-px-sm" size="sm" />
+          >
+            <q-tooltip> Share to other apps </q-tooltip>
+          </q-icon>
+          <q-icon
+            name="ion-link"
+            class="q-px-sm cursor-pointer"
+            size="sm"
+            @click="copyLink(article.url)"
+          >
+            <q-tooltip> Copy link to article </q-tooltip>
+          </q-icon>
           <!-- <q-icon name="ion-share" class="q-px-sm" /> -->
         </div>
 
@@ -133,6 +142,7 @@ import { db } from "../db";
 import { BottomSheet } from "quasar";
 import moment from "moment";
 import { Notify } from "quasar";
+import { copyToClipboard } from "quasar";
 
 // format 2020-03-23T23:39:13.179Z
 function formatDate(date) {
@@ -186,9 +196,26 @@ export default {
         });
       }
     },
-    copyLink() {
-      const url = document.querySelector(".article-url").textContent;
-      navigator.clipboard.writeText(url);
+    copyLink(url) {
+      copyToClipboard(url)
+        .then(() => {
+          // success!
+          Notify.create({
+            message: "Link copied to clipboard",
+            color: "positive",
+            position: "top",
+            timeout: 2000,
+          });
+        })
+        .catch(() => {
+          // fail
+          Notify.create({
+            message: "Failed to copy link to clipboard",
+            color: "negative",
+            position: "top",
+            timeout: 2000,
+          });
+        });
     },
     shareTwitter() {
       window.open(

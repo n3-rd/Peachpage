@@ -33,14 +33,15 @@
       :offset="[18, 18]"
       @click="showArticleInput"
     >
-      <q-btn fab icon="add" color="accent" />
+      <q-btn fab icon="add" color="accent">
+        <q-tooltip> Add article </q-tooltip>
+      </q-btn>
     </q-page-sticky>
   </div>
 </template>
 <script>
 import { db } from "../db";
 import { Notify } from "quasar";
-import clipboard from "clipboardy";
 
 export default {
   name: "AddArticle",

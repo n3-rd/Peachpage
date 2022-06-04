@@ -12,10 +12,14 @@
         </q-toolbar-title>
         <!-- add a dark mode toggle button -->
         <div v-if="!dark">
-          <q-btn flat round icon="brightness_3" @click="toggleDarkMode" />
+          <q-btn flat round icon="brightness_3" @click="toggleDarkMode">
+            <q-tooltip> Switch to Dark Mode </q-tooltip>
+          </q-btn>
         </div>
         <div v-if="dark">
-          <q-btn flat round icon="light_mode" @click="toggleDarkMode" />
+          <q-btn flat round icon="light_mode" @click="toggleDarkMode">
+            <q-tooltip> Switch to Light Mode </q-tooltip>
+          </q-btn>
         </div>
         <!-- <a href="https://github.com/n3-rd/Peachpage" class="initial-link"> -->
         <q-btn
@@ -23,14 +27,22 @@
           round
           icon="ion-logo-github"
           @click="openUrl('https://github.com/n3-rd/Peachpage')"
-        />
+        >
+          <q-tooltip> Go to Github repo </q-tooltip>
+        </q-btn>
+
+        <!-- ###### Future export database function -->
+        <!-- <q-btn flat round icon="cloud" @click="exportDB()" /> -->
+        <!-- </a> -->
+
         <q-btn
           flat
           round
           icon="ion-information-circle"
           @click="goToPage('/About')"
-        />
-        <!-- </a> -->
+        >
+          <q-tooltip> About the Developer </q-tooltip>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -51,12 +63,19 @@
 import { defineComponent } from "vue";
 import { Dark } from "quasar";
 import { db } from "../db";
+import {
+  importDB,
+  exportDB,
+  importInto,
+  peakImportFile,
+} from "dexie-export-import";
 
 // import NoArticles from "../components/content-holders/NoArticles.vue";
 import AddArticle from "../components/AddArticle";
 import Articles from "../components/Articles.vue";
 import ArticleView from "../components/ArticleView.vue";
 import { openURL } from "quasar";
+import download from "downloadjs";
 
 export default defineComponent({
   name: "PageIndex",
@@ -71,6 +90,7 @@ export default defineComponent({
       leftDrawerOpen: false,
       dark: Dark.isActive,
       noArticlesIllustration: false,
+      appJson: [],
     };
   },
   methods: {
@@ -112,6 +132,23 @@ export default defineComponent({
           console.log(count);
         }
       });
+    },
+    async exportDB() {
+      try {
+        const blob = await exportDB(db, { prettyJson: true });
+        // convert blob to JSON
+        const json = await blob.text();
+        console.log(json);
+        // download JSON
+
+        this.appJson = json;
+        // download(blob, "Peachpage.json", "application/json");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    sendJson() {
+      fetch(`http://192.168.43.235:3000/savejson?appJson`);
     },
   },
   mounted() {
